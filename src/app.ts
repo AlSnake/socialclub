@@ -3,6 +3,8 @@ import { Logger } from './core/logger';
 import express, { Request, Response, NextFunction } from 'express';
 import cookieParser from 'cookie-parser';
 import { ExtendedError } from './interfaces';
+import { Database } from './helpers/Database';
+import { MONGODB_URI } from './config/mongodb';
 
 const app = express();
 
@@ -27,6 +29,14 @@ app.use(
 	}
 );
 
-app.listen(process.env.PORT, () => {
-	Logger.info('Listening on Port: %d', process.env.PORT || 3000);
+Database.connectMongodb(MONGODB_URI, (err) => {
+	if (err) {
+		Logger.error(err);
+		process.exit(1);
+	}
+
+	app.listen(process.env.PORT, () => {
+		Logger.info('Successfully connected to MongoDB');
+		Logger.info('Listening on Port: %d', process.env.PORT || 3000);
+	});
 });
