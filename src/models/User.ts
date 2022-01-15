@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import { User, UserType } from '../interfaces';
+import { UserInfo, UserType } from '../interfaces';
 
-const userSchema = new Schema<User>(
+const userSchema = new Schema<UserInfo>(
 	{
 		type: {
 			type: String,
@@ -21,8 +21,15 @@ const userSchema = new Schema<User>(
 			type: String,
 			required: true,
 		},
+		email_verified: {
+			type: Boolean,
+			required: true,
+			default: false,
+		},
+		email_verify_code: String,
+		email_verify_expiry: Date,
 	},
 	{ timestamps: true }
 );
 
-export default model<User>('User', userSchema);
+export default model<UserInfo>('User', userSchema);

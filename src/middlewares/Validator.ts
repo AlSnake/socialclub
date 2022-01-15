@@ -56,4 +56,29 @@ export class Validator {
 			Validator.handler,
 		];
 	}
+
+	static email(): RequestHandler[] {
+		return [
+			body('email', 'Bad Email Address')
+				.exists()
+				.trim()
+				.isLength({ max: 64 })
+				.isEmail()
+				.normalizeEmail(),
+			Validator.handler,
+		];
+	}
+
+	static EmailAndCode(): RequestHandler[] {
+		return [
+			body('email', 'Bad Email Address')
+				.exists()
+				.trim()
+				.isLength({ max: 64 })
+				.isEmail()
+				.normalizeEmail(),
+			body('code', 'Bad Code').exists().trim(),
+			Validator.handler,
+		];
+	}
 }

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { UserType } from '../../interfaces';
-import { AuthService } from '../../services/Auth/Auth';
+import { AuthService } from '../../services/auth/Auth';
 
 export class AuthController {
 	static async postRegister(req: Request, res: Response, next: NextFunction) {
