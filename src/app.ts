@@ -5,12 +5,16 @@ import cookieParser from 'cookie-parser';
 import { ExtendedError } from './interfaces';
 import { Database } from './helpers/Database';
 import { MONGODB_URI } from './config/mongodb';
+import router from './api/router';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// ROUTER
+app.use('/', router);
 
 // INTERNAL ERROR HANDLER
 app.use(
